@@ -28,7 +28,7 @@ def RPi_response():
     photo_info = request.data
     print(photo_info)
     photo_dict = json.loads(photo_info)
-    item = photo_dict['label'][0]['Name']
+    item = photo_dict['Labels'][0]['Name']
     print(item)
     return item
 
