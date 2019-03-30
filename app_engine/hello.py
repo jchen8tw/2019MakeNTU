@@ -3,7 +3,7 @@ import json
 import requests
 
 app = Flask(__name__)
-to_bring_list = {"sunglasses":0, "baseball cap":0, "cup":0, "footwear":0, "Pillow":0}
+to_bring_list = {"sunglasses":1, "baseball cap":1, "cup":1, "footwear":1, "Pillow":0}
 client_url = "https://bot-api5.yoctol.com/kurator-bot/webhooks/line/1559843026"
 
 @app.route('/ITEM', methods = ['GET'])
