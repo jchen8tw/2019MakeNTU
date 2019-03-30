@@ -24,10 +24,15 @@ def text(message):
 @app.route('/check', methods = ['GET', 'POST'])
 def forgot():
     message = ""
+    all_remember = 1
     for x in to_bring_list:
         if to_bring_list[x] == 0:
+            all_remember = 0
             message = message + " " + dictionary[x]
-    message = "你忘了帶" + message
+    if all_remember == 0:
+        message = "你忘了帶" + message
+    elif all_remember == 1:
+        message = "你全都帶齊了呦～棒棒"
     yoctol_message = {}
     yoctol_message = text(message)
     return yoctol_message
@@ -35,10 +40,15 @@ def forgot():
 @app.route('/all', methods = ['GET', 'POST'])
 def taken():
     message = ""
+    all_forgot = 1
     for x in to_bring_list:
         if to_bring_list[x] == 1:
+            all_forgot = 0
             message = message + " " + dictionary[x]
-    message = "你的行李箱裡有" + message
+    if all_forgot == 0:
+        message = "你的行李箱裡有" + message
+    elif all_forgot == 1:
+        message = "哇～你都忘了帶ㄟQQ"
     yoctol_message = {}
     yoctol_message = text(message)
     return yoctol_message
