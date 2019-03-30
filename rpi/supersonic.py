@@ -43,9 +43,16 @@ while True:
     dis_down = get_distance(trigger_pin_down,echo_pin_down)
     if dis_boxopen > 30:
         #print("box is open!")
-        #print(get_distance(trigger_pin_up,echo_pin_up))
-        #print(get_distance(trigger_pin_down,echo_pin_down))
-        print(reko())
-    #else:
+        #print("up:",get_distance(trigger_pin_up,echo_pin_up))
+        #print("down: ",get_distance(trigger_pin_down,echo_pin_down))
+        #print("up: ",dis_up)
+        #print("down ",dis_down)
+        if dis_up < 35 or dis_down < 35:
+            print("this is so long fewiuhfiulwehfiuehfiluweahfuilewahfliaeufhwieuafhlieu")
+            print(test.reko())
+            time.sleep(5)
+    else:
+        pass
         #print("box is closed")
-    time.sleep(1)
+    #print('box distance', dis_boxopen)
+    time.sleep(0.01)
