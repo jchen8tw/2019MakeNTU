@@ -4,7 +4,10 @@ import requests
 
 app = Flask(__name__)
 to_bring_list = {"Sunglasses":0, "Baseball Cap":0, "Cup":0, "Mouse":0, "Pillow":0}
+dictionary = {"Sunglasses":"太陽眼鏡", "Baseball Cap":"鴨舌帽", "Mouse":"滑鼠", "Cup":"杯子","MahJong":"麻將","Pillow":"涼宮春日的等身抱枕"}
+change_list = []
 client_url = "https://bot-api5.yoctol.com/kurator-bot/webhooks/line/1559843026"
+box_status = '0'
 
 
 def text(message):
@@ -37,12 +40,20 @@ def response():
         obj_type = "MahJong"
     elif id == '5':
         obj_type = "Pillow"
+    elif id == 'delta':
+        obj_type = 'change_list'
     yoctol_message = {}
     if obj_type in to_bring_list:
         if to_bring_list[obj_type] == 1:
             yoctol_message = text("你已經把他放進行李箱喔~")
         elif to_bring_list[obj_type] == 0:
             yoctol_message = text("你還沒把他放進行李箱喔~")
+    elif obj_type == 'change_list':
+        message = ""
+        for item in change_list:
+            message = message + " " + item
+        message = "你這次多放了" + message
+        yoctol_message = text(message)
     else:
         yoctol_message = text("此項物品不在你的清單中喔~")
     # r = requests.post(client_url, data= yoctol_message)
@@ -50,19 +61,25 @@ def response():
 
 @app.route('/RPi', methods = ['GET','POST'])
 def RPi_response():
-    photo_info = request.data
-    photo_dict = json.loads(photo_info)
-    obj_list = []
-    item = ""
-    for i in range(len(photo_dict['Labels'])):
-      if photo_dict['Labels'][i]['Confidence'] > 80:
-        item = photo_dict['Labels'][i]['Name']
-        if item in to_bring_list:
-          to_bring_list[item] = 1
-          message = item + " is put in the e-luggage."
-          print(message)
-        obj_list += [item]
-    print(obj_list)
+    cur_status = request.args.get('Status')
+    if cur_status == '1':
+        if prev_status == '0':
+            change_list = []
+        photo_info = request.data
+        photo_dict = json.loads(photo_info)
+        obj_list = []
+        item = ""
+        for i in range(len(photo_dict['Labels'])):
+            if photo_dict['Labels'][i]['Confidence'] > 80:
+                item = photo_dict['Labels'][i]['Name']
+                if item in to_bring_list:
+                    to_bring_list[item] = 1
+                    change_list += [item]
+                    message = item + " is put in the e-luggage."
+                    print(message)
+                obj_list += [item]
+        print(obj_list)
+    prev_status = cur_status
     return "ok"
 
 @app.route('/ChangeList', methods=['GET','POST'])
