@@ -8,11 +8,12 @@ client_url = "https://bot-api5.yoctol.com/kurator-bot/webhooks/line/1559843026"
 
 
 def text(message):
-     x = {"messages": 
+     x = {"messages": [
     {
       "type": "text",
       "text": message
     }
+    ]
     }
      return x
     
@@ -31,10 +32,12 @@ def response():
         obj_type = "Cup"
     elif id == '3':
         obj_type = "Footwear"
+        print(obj_type)
     elif id == '4':
         obj_type = "MahJong"
     elif id == '5':
         obj_type = "Pillow"
+    print(obj_type)
     print(to_bring_list)
     yoctol_message = {}
     if obj_type in to_bring_list:
