@@ -2,9 +2,11 @@ from flask import request
 from flask import Flask
 import json
 from flask import jsonify
-
+import socket
 app = Flask(__name__)
-
+HOST = "10.20.2.161"
+PORT = 5000
+s = socket.socket()
 from flask import Flask
 from flask import request
 
@@ -26,6 +28,11 @@ def response():
   ]
 }
     return "<h1>hahah</h1>"
+
+@app.route('/RPi', methods = ['GET','POST'])
+def RPi_response():
+    a = request.args.get()
+    return "<h1>RPi<h1>"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
