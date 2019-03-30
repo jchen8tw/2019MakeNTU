@@ -3,7 +3,7 @@ import json
 import requests
 
 app = Flask(__name__)
-to_bring_list = {"Sunglasses":0, "Baseball cap":0, "Cup":0, "Footwear":0, "Pillow":0}
+to_bring_list = {"Sunglasses":0, "Baseball Cap":0, "Cup":0, "Mouse":0, "Pillow":0}
 client_url = "https://bot-api5.yoctol.com/kurator-bot/webhooks/line/1559843026"
 
 
@@ -27,11 +27,11 @@ def response():
     if id == '0':
         obj_type = "Sunglasses"
     elif id == '1':
-        obj_type = "Baseball cap"
+        obj_type = "Baseball Cap"
     elif id == '2':
         obj_type = "Cup"
     elif id == '3':
-        obj_type = "Footwear"
+        obj_type = "Mouse"
         print(obj_type)
     elif id == '4':
         obj_type = "MahJong"
@@ -59,7 +59,7 @@ def RPi_response():
         item = photo_dict['Labels'][i]['Name']
         if item in to_bring_list:
           to_bring_list[item] = 1
-          message = item + "is put in the e-luggage."
+          message = item + " is put in the e-luggage."
           print(message)
         obj_list += [item]
     print(obj_list)
