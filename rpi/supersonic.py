@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import test
 trigger_pin_boxopen = 2
 echo_pin_boxopen = 3
 trigger_pin_up = 14
@@ -41,9 +42,10 @@ while True:
     dis_up = get_distance(trigger_pin_up,echo_pin_up)
     dis_down = get_distance(trigger_pin_down,echo_pin_down)
     if dis_boxopen > 30:
-        print("box is open!")
-        print(get_distance(trigger_pin_up,echo_pin_up))
-        print(get_distance(trigger_pin_down,echo_pin_down))
-    else:
-        print("box is closed")
+        #print("box is open!")
+        #print(get_distance(trigger_pin_up,echo_pin_up))
+        #print(get_distance(trigger_pin_down,echo_pin_down))
+        print(reko())
+    #else:
+        #print("box is closed")
     time.sleep(1)
