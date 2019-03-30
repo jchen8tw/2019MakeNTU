@@ -1,7 +1,6 @@
 import RPi.GPIO as GPIO
 import time
 from test import reko
-from flask import request, Flask, jsonify
 import json
 import requests
 
@@ -46,18 +45,19 @@ while True:
     dis_up = get_distance(trigger_pin_up,echo_pin_up)
     dis_down = get_distance(trigger_pin_down,echo_pin_down)
     if dis_boxopen > 30:
-        #print("box is open!")
+        print("box is open!")
         #print("up:",get_distance(trigger_pin_up,echo_pin_up))
         #print("down: ",get_distance(trigger_pin_down,echo_pin_down))
-        #print("up: ",dis_up)
-        #print("down ",dis_down)
+        print("up: ",dis_up)
+        print("down ",dis_down)
         if dis_up < 35 or dis_down < 35:
-            #print("this is so long fewiuhfiulwehfiuehfiluweahfuilewahfliaeufhwieuafhlieu")
+            print("this is so long fewiuhfiulwehfiuehfiluweahfuilewahfliaeufhwieuafhlieu")
             data = reko()
+            data = json.dumps(data)
             r = requests.post("http://ec2-52-69-255-179.ap-northeast-1.compute.amazonaws.com:5000/RPi", data = data)
-            time.sleep(5)
+            time.sleep(8)
     else:
         pass
-        #print("box is closed")
+        print("box is closed")
     #print('box distance', dis_boxopen)
     time.sleep(0.01)
