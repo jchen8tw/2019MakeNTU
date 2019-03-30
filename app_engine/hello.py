@@ -26,7 +26,6 @@ def response():
 @app.route('/RPi', methods = ['GET','POST'])
 def RPi_response():
     photo_info = request.data
-    print(photo_info)
     photo_dict = json.loads(photo_info)
     print(type(photo_dict))
     obj_list = []
