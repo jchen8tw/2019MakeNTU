@@ -14,6 +14,8 @@ def captureImg():
     camera.set(cv2.CAP_PROP_FRAME_HEIGHT ,720.0)
     camera.set(cv2.CAP_PROP_BUFFERSIZE, 1); 
     returnval, image = camera.read()
+    while(returnval == False):
+        returnval, image = camera.read()
     cv2.imwrite('opencv.jpg', image)
     f = open('opencv.jpg','rb')
     del(camera)
