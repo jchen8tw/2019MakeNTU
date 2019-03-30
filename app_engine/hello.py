@@ -22,7 +22,7 @@ def text(message):
      return json.dumps(x)
     
 @app.route('/check', methods = ['GET', 'POST'])
-def forgotten():
+def forgot():
     message = ""
     for x in to_bring_list:
         if to_bring_list[x] == 0:
@@ -33,7 +33,7 @@ def forgotten():
     return yoctoal_message
 
 @app.route('/all', methods = ['GET', 'POST'])
-def return_all():
+def taken():
     message = ""
     for x in to_bring_list:
         if to_bring_list[x] == 1:
