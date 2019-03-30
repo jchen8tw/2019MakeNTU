@@ -39,9 +39,9 @@ def response():
         obj_type = "Pillow"
     yoctol_message = {}
     if obj_type in to_bring_list:
-        if to_bring_list[obj_type] == 0:
+        if to_bring_list[obj_type] == 1:
             yoctol_message = text("你已經把他放進行李箱喔~")
-        elif to_bring_list[obj_type] == 1:
+        elif to_bring_list[obj_type] == 0:
             yoctol_message = text("你還沒把他放進行李箱喔~")
     else:
         yoctol_message = text("此項物品不在你的清單中喔~")
