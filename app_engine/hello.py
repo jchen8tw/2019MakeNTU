@@ -21,6 +21,7 @@ def text(message):
 @app.route('/ITEM', methods = ['GET','POST'])
 def response():
     id = request.args.get('id')
+    print(id)
     obj_type = ""
     if id == '0':
         obj_type = "Sunglasses"
