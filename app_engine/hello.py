@@ -6,6 +6,18 @@ app = Flask(__name__)
 to_bring_list = {"Sunglasses":1, "Baseball cap":1, "Cup":1, "Footwear":1, "Pillow":0}
 client_url = "https://bot-api5.yoctol.com/kurator-bot/webhooks/line/1559843026"
 
+
+def text(message):
+     x = {"messages": 
+    {
+      "type": "text",
+      "text": message
+    }
+    return yoctol_message
+}
+    
+
+
 @app.route('/ITEM', methods = ['GET','POST'])
 def response():
     id = request.args.get('id')
@@ -26,27 +38,15 @@ def response():
     elif id == 5:
         obj_type = "Pillow"
     print(to_bring_list)
+    yoctol_message = {}
     if obj_type in to_bring_list:
         if to_bring_list[obj_type] == 0:
-            requests.post(client_url, data = "你已經把他放進行李箱喔~")
+            yoctol_message = text("你已經把他放進行李箱喔~")
         elif to_bring_list[obj_type] == 1:
-            requests.post(client_url, data = "你還沒把他放進行李箱喔~")
+            yoctol_message = text("你還沒把他放進行李箱喔~")
     else:
-        requests.post(client_url, data = "此項物品不在你的清單中喔~")
-    '''
-    x = {"messages": [
-    {
-      "type": "text",
-      "text": "歡迎使用最聰明的聊天機器人平台 —— YOCTOL.AI"
-    },
-    {
-      "type": "text",
-      "text": "您打算創建怎樣的機器人呢？"
-    }
-  ]
-}
-'''
-
+        yoctol_message = text("此項物品不在你的清單中喔~")
+    r = request.post(client_url,data=json.dumps(yoctol_message))
     return "<h1>hahah</h1>"
 
 @app.route('/RPi', methods = ['GET','POST'])
