@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO
+mport RPi.GPIO as GPIO
 import time
 import test
 trigger_pin_boxopen = 2

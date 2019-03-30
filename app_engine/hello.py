@@ -21,7 +21,25 @@ def text(message):
     
      return json.dumps(x)
     
+@app.route('/check', methods = ['GET', 'POST'])
+def forgotten():
+    message = ""
+    for x in to_bring_list:
+        if to_bring_list[x] == 0:
+            message = message + " " + dictionary[x]
+    message = "你忘了帶" + message
+    yoctol_message = text(message)
+    return yoctoal_message
 
+@app.route('/all', methods = ['GET', 'POST'])
+def return_all():
+    message = ""
+    for x in to_bring_list:
+        if to_bring_list[x] == 1:
+            message = message + " " + dictionary[x]
+    message = "你的行李箱裡有" + message
+    yoctol_message = text(message)
+    return yoctoal_message
 
 @app.route('/ITEM', methods = ['GET','POST'])
 def response():
@@ -52,7 +70,7 @@ def response():
         message = ""
         for item in change_list:
             message = message + " " + dictionary[item]
-        message = "你這次多放了" + message
+        message = "你的行李箱增加了" + message + " 等物品"
         yoctol_message = text(message)
     else:
         yoctol_message = text("此項物品不在你的清單中喔~")
@@ -77,20 +95,20 @@ def RPi_response():
                 if item in to_bring_list:
                     to_bring_list[item] = 1
                     change_list += [item]
-                    message = item + " is put in the e-luggage."
+                    message = item + " is put into the e-luggage."
                     print(message)
                 obj_list += [item]
         print(obj_list)
     previos_status = cur_status
     return "ok"
 
-@app.route('/ChangeList', methods=['GET','POST'])
+@app.route('/list', methods=['GET','POST'])
 def ChangeList():
     to_bring_info = request.data
     new_bring_dict = json.loads(to_bring_info)
     return "ok"
 
-@app.route('/LookList', methods=['GET,POST'])
+@app.route('/look', methods=['GET,POST'])
 def LookList():
     return json.dumps(to_bring_list)
     
