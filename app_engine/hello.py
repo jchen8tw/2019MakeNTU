@@ -106,7 +106,7 @@ def RPi_response():
 
 @app.route('/list', methods=['GET','POST'])
 def ChangeList():
-    to_bring_info = request.data
+    to_bring_info = request.get_json()
     new_bring_dict = json.loads(to_bring_info)
     return "ok"
 
