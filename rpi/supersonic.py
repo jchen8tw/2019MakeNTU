@@ -55,7 +55,7 @@ while True:
             data = reko()
             data = json.dumps(data)
             r = requests.post("http://ec2-52-69-255-179.ap-northeast-1.compute.amazonaws.com:5000/RPi", data = data)
-            time.sleep(8)
+            time.sleep(5)
     else:
         pass
         print("box is closed")
