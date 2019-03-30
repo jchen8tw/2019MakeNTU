@@ -1,5 +1,6 @@
 from flask import request, Flask, jsonify
 import json
+import requests
 
 to_bring_list = {}
 brougth_list = {}
@@ -24,7 +25,7 @@ def response():
 
 @app.route('/RPi', methods = ['GET','POST'])
 def RPi_response():
-    b = request.get_json()
+    b = request.data()
     print(b)
     return "<h1>RPi<h1>"
 
