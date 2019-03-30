@@ -3,13 +3,15 @@ import json
 import requests
 
 app = Flask(__name__)
-to_bring_list = {"sunglasses":1, "baseball cap":1, "cup":1, "footwear":1, "Pillow":0}
+to_bring_list = {"Sunglasses":1, "Baseball cap":1, "Cup":1, "Footwear":1, "Pillow":0}
 client_url = "https://bot-api5.yoctol.com/kurator-bot/webhooks/line/1559843026"
 
-@app.route('/ITEM', methods = ['GET'])
+@app.route('/ITEM', methods = ['GET','POST'])
 def response():
-    id = int(request.args.get('id'))
+    id = request.args.get('id')
+    print(type(id))
     print(id)
+    id = int(id)
     obj_type = ""
     if id == 0:
         obj_type = "Sunglasses"
@@ -23,6 +25,7 @@ def response():
         obj_type = "MahJong"
     elif id == 5:
         obj_type = "Pillow"
+    print(to_bring_list)
     if obj_type in to_bring_list:
         if to_bring_list[obj_type] == 0:
             requests.post(client_url, data = "你已經把他放進行李箱喔~")
@@ -54,6 +57,7 @@ def RPi_response():
     for i in range(len(photo_dict['Labels'])):
       if photo_dict['Labels'][i]['Confidence'] > 80:
         item = photo_dict['Labels'][i]['Name']
+        if item in to_bring
         obj_list += [item]
     print(obj_list)
     return "ok"
