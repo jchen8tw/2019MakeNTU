@@ -28,6 +28,7 @@ def forgotten():
         if to_bring_list[x] == 0:
             message = message + " " + dictionary[x]
     message = "你忘了帶" + message
+    yoctol_message = {}
     yoctol_message = text(message)
     return yoctoal_message
 
@@ -38,6 +39,7 @@ def return_all():
         if to_bring_list[x] == 1:
             message = message + " " + dictionary[x]
     message = "你的行李箱裡有" + message
+    yoctol_message = {}
     yoctol_message = text(message)
     return yoctoal_message
 
