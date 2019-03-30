@@ -1,30 +1,28 @@
-# Copyright 2017 Google Inc. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 from datetime import datetime
 import logging
 import os
-
-from flask import Flask, redirect, render_template, request
+import sys
+from flask import Flask, redirect, render_template, request, abort
 
 from google.cloud import datastore
 from google.cloud import storage
 from google.cloud import vision
 
+sys.path.append('/home/g2019makentu/2019MakeNTU/2019MakeNTU/env/lib/python3.5/site-packages')
+'''
+from linebot import (
+    LineBotApi, WebhookHandler
+)
+from linebot.exceptions import (
+    InvalidSignatureError
+)
+from linebot.models import (
+    MessageEvent, TextMessage, TextSendMessage,
+)'''
 
 CLOUD_STORAGE_BUCKET = os.environ.get('CLOUD_STORAGE_BUCKET')
-
+# line_bot_api = LineBotApi('1559843026')
+# handler = WebhookHandler('3230d190ddf6811441a9a7b0a741af01')
 
 app = Flask(__name__)
 
@@ -42,17 +40,53 @@ def homepage():
     # Return a Jinja2 HTML template and pass in image_entities as a parameter.
     return render_template('homepage.html', image_entities=image_entities)
 
-@app.route('https://bot-api5.yoctol.com/kurator-bot/webhooks/line/1559843026', methods = ['POST'])
+
+'''@app.route('/postjson', methods = ['POST'])
 def postJsonHandler():
     print (request.is_json)
     content = request.get_json()
     print (content)
-    return 'JSON posted'
+    return 'JSON posted'''
+
+
+'''@app.route("/callback", methods=['POST'])
+def callback():
+    # get X-Line-Signature header value
+    signature = request.headers['X-Line-Signature']
+    print(signature)
+    # get request body as text
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
+
+    # handle webhook body
+    try:
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        print("Invalid signature. Please check your channel access token/channel secret.")
+        abort(400)
+
+    return 'OK'
+
+
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    print("MAKENTU")
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=event.message.text))'''
+
+
+@app.route('/test', methods=['POST', 'GET'])
+def test():
+    print(1)
+    data = request.data['key1']
+    print(data)
+
 
 @app.route('/upload_photo', methods=['GET', 'POST'])
 def upload_photo():
     photo = request.files['file']
-
+    print("gotten")
     # Create a Cloud Storage client.
     storage_client = storage.Client()
 
@@ -129,6 +163,5 @@ def server_error(e):
 
 
 if __name__ == '__main__':
-    # This is used when running locally. Gunicorn is used to run the
-    # application on Google App Engine. See entrypoint in app.yaml.
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    app.run(host='127.0.0.1', port=8888, debug=True)
+
