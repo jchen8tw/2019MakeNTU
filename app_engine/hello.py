@@ -7,7 +7,7 @@ to_bring_list = {"Sunglasses":0, "Baseball Cap":0, "Cup":0, "Mouse":0, "Pillow":
 dictionary = {"Sunglasses":"太陽眼鏡", "Baseball Cap":"鴨舌帽", "Mouse":"滑鼠", "Cup":"杯子","MahJong":"麻將","Pillow":"涼宮春日的等身抱枕"}
 change_list = []
 client_url = "https://bot-api5.yoctol.com/kurator-bot/webhooks/line/1559843026"
-prev_status = '0'
+previos_status = '0'
 
 
 def text(message):
@@ -63,7 +63,7 @@ def response():
 def RPi_response():
     cur_status = request.args.get('Status')
     if cur_status == '1':
-        if prev_status == '0':
+        if previos_status == '0':
             change_list = []
         photo_info = request.data
         photo_dict = json.loads(photo_info)
@@ -79,7 +79,7 @@ def RPi_response():
                     print(message)
                 obj_list += [item]
         print(obj_list)
-    prev_status = cur_status
+    previos_status = cur_status
     return "ok"
 
 @app.route('/ChangeList', methods=['GET','POST'])
