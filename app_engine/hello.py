@@ -25,7 +25,7 @@ def response():
 
 @app.route('/RPi', methods = ['GET','POST'])
 def RPi_response():
-    b = request.data()
+    b = request.data
     print(b)
     return "<h1>RPi<h1>"
 
