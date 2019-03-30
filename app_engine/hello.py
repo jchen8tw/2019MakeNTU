@@ -46,7 +46,7 @@ def response():
             yoctol_message = text("你還沒把他放進行李箱喔~")
     else:
         yoctol_message = text("此項物品不在你的清單中喔~")
-    r = request.post(client_url,data=json.dumps(yoctol_message))
+    r = requests.post(client_url,data=json.dumps(yoctol_message))
     return "<h1>hahah</h1>"
 
 @app.route('/RPi', methods = ['GET','POST'])
