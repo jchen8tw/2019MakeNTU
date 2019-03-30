@@ -30,7 +30,8 @@ def RPi_response():
     photo_dict = json.loads(photo_info)
     obj_list = []
     for i in range(len(photo_dict['Labels'])):
-      obj_list += [photo_dict['Labels'][i]['Name']]
+      if photo_dict['Labels'][i]['Confidence'] > 80:
+        obj_list += [photo_dict['Labels'][i]['Name']]
     print(obj_list)
     return obj_list
 
