@@ -15,14 +15,14 @@ def text(message):
     }
     ]
     }
-     return x
+    
+     return json.dumps(x)
     
 
 
 @app.route('/ITEM', methods = ['GET','POST'])
 def response():
     id = request.args.get('id')
-    print(id)
     obj_type = ""
     if id == '0':
         obj_type = "Sunglasses"
@@ -37,8 +37,6 @@ def response():
         obj_type = "MahJong"
     elif id == '5':
         obj_type = "Pillow"
-    print(obj_type)
-    print(to_bring_list)
     yoctol_message = {}
     if obj_type in to_bring_list:
         if to_bring_list[obj_type] == 0:
@@ -47,8 +45,8 @@ def response():
             yoctol_message = text("你還沒把他放進行李箱喔~")
     else:
         yoctol_message = text("此項物品不在你的清單中喔~")
-    r = requests.post(client_url,data=json.dumps(yoctol_message))
-    return "<h1>hahah</h1>"
+    # r = requests.post(client_url, data= yoctol_message)
+    return yoctol_message
 
 @app.route('/RPi', methods = ['GET','POST'])
 def RPi_response():
