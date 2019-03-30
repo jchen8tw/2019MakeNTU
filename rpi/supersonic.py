@@ -1,6 +1,9 @@
 import RPi.GPIO as GPIO
 import time
 from test import reko
+from flask import request, Flask, jsonify
+import json
+import requests
 
 trigger_pin_boxopen = 2
 echo_pin_boxopen = 3
@@ -50,7 +53,8 @@ while True:
         #print("down ",dis_down)
         if dis_up < 35 or dis_down < 35:
             #print("this is so long fewiuhfiulwehfiuehfiluweahfuilewahfliaeufhwieuafhlieu")
-            print(reko())
+            data = reko()
+            r = requests.post("http://ec2-52-69-255-179.ap-northeast-1.compute.amazonaws.com:5000/RPi", data = data)
             time.sleep(5)
     else:
         pass
