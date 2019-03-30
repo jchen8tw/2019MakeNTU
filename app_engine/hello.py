@@ -57,7 +57,8 @@ def RPi_response():
     for i in range(len(photo_dict['Labels'])):
       if photo_dict['Labels'][i]['Confidence'] > 80:
         item = photo_dict['Labels'][i]['Name']
-        if item in to_bring
+        if item in to_bring_list:
+          to_bring_list[item] = 1
         obj_list += [item]
     print(obj_list)
     return "ok"
