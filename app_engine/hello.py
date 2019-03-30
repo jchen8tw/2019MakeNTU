@@ -62,18 +62,18 @@ def RPi_response():
           message = item + "is put in the e-luggage."
           print(message)
         obj_list += [item]
+    print(obj_list)
     return "ok"
 
 @app.route('/ChangeList', methods=['GET','POST'])
 def ChangeList():
     to_bring_info = request.data
-    to_bring_dict = json.loads(to_bring_info)
+    new_bring_dict = json.loads(to_bring_info)
     return "ok"
 
 @app.route('/LookList', methods=['GET,POST'])
 def LookList():
-    requests.post()
-    return "ok"
+    return json.dumps(to_bring_list)
     
 
 
