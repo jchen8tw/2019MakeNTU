@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
-import test
+from test import reko
+
 trigger_pin_boxopen = 2
 echo_pin_boxopen = 3
 trigger_pin_up = 14
@@ -49,7 +50,7 @@ while True:
         #print("down ",dis_down)
         if dis_up < 35 or dis_down < 35:
             #print("this is so long fewiuhfiulwehfiuehfiluweahfuilewahfliaeufhwieuafhlieu")
-            print(test.reko())
+            print(reko())
             time.sleep(5)
     else:
         pass
