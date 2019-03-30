@@ -61,9 +61,10 @@ def response():
 
 @app.route('/RPi', methods = ['GET','POST'])
 def RPi_response():
+    global previos_status
     cur_status = request.args.get('Status')
     if cur_status == '1':
-        if global previos_status == '0':
+        if previos_status == '0':
             change_list = []
         photo_info = request.data
         photo_dict = json.loads(photo_info)
@@ -79,7 +80,7 @@ def RPi_response():
                     print(message)
                 obj_list += [item]
         print(obj_list)
-    global previos_status = cur_status
+    previos_status = cur_status
     return "ok"
 
 @app.route('/ChangeList', methods=['GET','POST'])
