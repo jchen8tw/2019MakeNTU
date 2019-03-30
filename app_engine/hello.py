@@ -21,21 +21,18 @@ def text(message):
 @app.route('/ITEM', methods = ['GET','POST'])
 def response():
     id = request.args.get('id')
-    print(type(id))
-    print(id)
-    id = int(id)
     obj_type = ""
-    if id == 0:
+    if id == '0':
         obj_type = "Sunglasses"
-    elif id == 1:
+    elif id == '1':
         obj_type = "Baseball cap"
-    elif id == 2:
+    elif id == '2':
         obj_type = "Cup"
-    elif id == 3:
+    elif id == '3':
         obj_type = "Footwear"
-    elif id == 4:
+    elif id == '4':
         obj_type = "MahJong"
-    elif id == 5:
+    elif id == '5':
         obj_type = "Pillow"
     print(to_bring_list)
     yoctol_message = {}
