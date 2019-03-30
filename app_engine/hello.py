@@ -59,10 +59,10 @@ def RPi_response():
         item = photo_dict['Labels'][i]['Name']
         if item in to_bring_list:
           to_bring_list[item] = 1
+          message = item + "is put in the e-luggage."
+          print(message)
         obj_list += [item]
-    print(obj_list)
-    message = item + "is put in the e-luggage."
-    return message
+    return "ok"
 
 @app.route('/ChangeList', methods=['GET','POST'])
 def ChangeList():
