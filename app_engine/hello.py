@@ -7,7 +7,7 @@ to_bring_list = {"Sunglasses":0, "Baseball Cap":0, "Cup":0, "Mouse":0, "Pillow":
 dictionary = {"Sunglasses":"太陽眼鏡", "Baseball Cap":"鴨舌帽", "Mouse":"滑鼠", "Cup":"杯子","MahJong":"麻將","Pillow":"涼宮春日的等身抱枕"}
 change_list = []
 client_url = "https://bot-api5.yoctol.com/kurator-bot/webhooks/line/1559843026"
-box_status = '0'
+prev_status = '0'
 
 
 def text(message):
@@ -51,7 +51,7 @@ def response():
     elif obj_type == 'change_list':
         message = ""
         for item in change_list:
-            message = message + " " + item
+            message = message + " " + dictionary[item]
         message = "你這次多放了" + message
         yoctol_message = text(message)
     else:
