@@ -13,7 +13,7 @@ def text(message):
       "type": "text",
       "text": message
     }
-    return yoctol_message
+    return x
 }
     
 
