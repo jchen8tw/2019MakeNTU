@@ -1,15 +1,13 @@
 import boto3
-if __name__ == "__main__":
-
-    imageFile='./cat.jpg'
-    client=boto3.client('rekognition')
-
-    with open(imageFile, 'rb') as image:
-        response = client.detect_labels(Image={'Bytes': image.read()})
-
-    print('Detected labels in ' + imageFile)
-    for label in response['Labels']:
-        print (label['Name'] + ' : ' + str(label['Confidence']))
-
+from camera import captureImg
+client=boto3.client('rekognition')
+def reko():
+    image = captureImg()
+    response = client.detect_labels(Image={'Bytes': image.read()})
+    print('Detected labels in this image :')
+    #for label in response['Labels']:
+    #    print (label['Name'] + ' : ' + str(label['Confidence']))
+    print(response)
     print('Done...')
+    return response
 
