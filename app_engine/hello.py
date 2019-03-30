@@ -28,9 +28,11 @@ def RPi_response():
     photo_info = request.data
     print(photo_info)
     photo_dict = json.loads(photo_info)
-    item = photo_dict['Labels'][0]['Name']
-    print(item)
-    return item
+    obj_list = []
+    for i in range(len(photo_dict['Labels'])):
+      obj_list += [photo_dict['Labels'][i]['Name']]
+    print(obj_list)
+    return obj_list
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
