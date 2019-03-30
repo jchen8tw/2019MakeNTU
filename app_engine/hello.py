@@ -30,7 +30,7 @@ def forgot():
     message = "你忘了帶" + message
     yoctol_message = {}
     yoctol_message = text(message)
-    return yoctoal_message
+    return yoctol_message
 
 @app.route('/all', methods = ['GET', 'POST'])
 def taken():
@@ -41,7 +41,7 @@ def taken():
     message = "你的行李箱裡有" + message
     yoctol_message = {}
     yoctol_message = text(message)
-    return yoctoal_message
+    return yoctol_message
 
 @app.route('/ITEM', methods = ['GET','POST'])
 def response():
