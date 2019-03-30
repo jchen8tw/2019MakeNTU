@@ -4,9 +4,9 @@ import os
 import sys
 from flask import Flask, redirect, render_template, request, abort
 
-from google.cloud import datastore
-from google.cloud import storage
-from google.cloud import vision
+#from google.cloud import datastore
+#from google.cloud import storage
+#from google.cloud import vision
 
 sys.path.append('/home/g2019makentu/2019MakeNTU/2019MakeNTU/env/lib/python3.5/site-packages')
 '''
@@ -163,5 +163,5 @@ def server_error(e):
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8888, debug=True)
+    app.run(host='127.0.0.1', port=5000, debug=True)
 
