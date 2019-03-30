@@ -32,8 +32,8 @@ def RPi_response():
     for i in range(len(photo_dict['Labels'])):
       if photo_dict['Labels'][i]['Confidence'] > 80:
         obj_list += [photo_dict['Labels'][i]['Name']]
-    print(obj_list)
-    return obj_list[0]
+    print(obj_list.decode())
+    return "ok"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
