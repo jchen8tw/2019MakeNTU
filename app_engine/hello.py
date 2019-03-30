@@ -25,9 +25,12 @@ def response():
 
 @app.route('/RPi', methods = ['GET','POST'])
 def RPi_response():
-    b = request.data
-    print(b)
-    return "<h1>RPi<h1>"
+    photo_info = request.data
+    print(photo_info)
+    photo_dict = json.loads(photo_info)
+    item = photo_dict['label'][0]['Name']
+    print(item)
+    return item
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
