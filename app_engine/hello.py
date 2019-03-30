@@ -72,6 +72,7 @@ def ChangeList():
 @app.route('/LookList', methods=['GET,POST'])
 def LookList():
     requests.post()
+    return "ok"
     
 
 
