@@ -62,6 +62,7 @@ def response():
 @app.route('/RPi', methods = ['GET','POST'])
 def RPi_response():
     global previos_status
+    global change_list
     cur_status = request.args.get('Status')
     if cur_status == '1':
         if previos_status == '0':
