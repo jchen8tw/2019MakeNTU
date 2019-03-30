@@ -28,11 +28,14 @@ def RPi_response():
     photo_info = request.data
     print(photo_info)
     photo_dict = json.loads(photo_info)
+    print(type(photo_dict))
     obj_list = []
     for i in range(len(photo_dict['Labels'])):
       if photo_dict['Labels'][i]['Confidence'] > 80:
-        obj_list += [photo_dict['Labels'][i]['Name']]
-    print(obj_list.decode())
+        item = photo_dict['Labels'][i]['Name']
+        print(type(item))
+        obj_list += [item]
+    print(obj_list)
     return "ok"
 
 if __name__ == "__main__":
