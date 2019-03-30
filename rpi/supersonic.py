@@ -10,6 +10,7 @@ trigger_pin_up = 14
 echo_pin_up = 15
 trigger_pin_down = 17
 echo_pin_down = 18
+status = 0
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(trigger_pin_boxopen, GPIO.OUT)
@@ -45,6 +46,7 @@ while True:
     dis_up = get_distance(trigger_pin_up,echo_pin_up)
     dis_down = get_distance(trigger_pin_down,echo_pin_down)
     if dis_boxopen > 30:
+        status = 1
         print("box is open!")
         #print("up:",get_distance(trigger_pin_up,echo_pin_up))
         #print("down: ",get_distance(trigger_pin_down,echo_pin_down))
@@ -54,10 +56,11 @@ while True:
             print("this is so long fewiuhfiulwehfiuehfiluweahfuilewahfliaeufhwieuafhlieu")
             data = reko()
             data = json.dumps(data)
-            r = requests.post("http://ec2-52-69-255-179.ap-northeast-1.compute.amazonaws.com:5000/RPi", data = data)
+            r = requests.post("http://ec2-52-69-255-179.ap-northeast-1.compute.amazonaws.com:5000/RPi?Status=1", data = data)   
             time.sleep(5)
     else:
-        pass
+        status = 0
         print("box is closed")
+        r = requests.post("http://ec2-52-69-255-179.ap-northeast-1.compute.amazonaws.com:5000/RPi?Status=0", data = '{}')
     #print('box distance', dis_boxopen)
     time.sleep(0.01)
