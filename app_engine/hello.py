@@ -48,7 +48,7 @@ def taken():
     if all_forgot == 0:
         message = "你的行李箱裡有" + message
     elif all_forgot == 1:
-        message = "哇～你都忘了帶ㄟQQ"
+        message = "哇～都沒東西ㄟQQ"
     yoctol_message = {}
     yoctol_message = text(message)
     return yoctol_message
