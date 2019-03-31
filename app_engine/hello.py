@@ -88,10 +88,12 @@ def RPi_response():
 def ChangeList():
     to_bring_info = request.data
     new_bring_dict = json.loads(to_bring_info)
+    
     return "ok"
 
 @app.route('/LookList', methods=['GET,POST'])
 def LookList():
+    
     return json.dumps(to_bring_list)
     
 

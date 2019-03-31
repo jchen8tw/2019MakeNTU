@@ -119,10 +119,10 @@ class TodoAppRoot extends React.Component {
         this.state = {
             "itemList": [
                 ["Sunglasses", false],
-                ["Baseball cap", false],
+                ["Baseball Cap", false],
                 ["Cup", false],
                 ["Mouse", false],
-                ["Majian", false],
+                ["MahJong", false],
                 ["LiangGongSpringDay", false]
             ]
         }
