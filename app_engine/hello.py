@@ -1,4 +1,4 @@
-from flask import request, Flask, jsonify
+from flask import request, Flask, jsonify,Response
 import json
 import requests
 
@@ -21,7 +21,37 @@ def text(message):
     
      return json.dumps(x)
     
+@app.route('/check', methods = ['GET', 'POST'])
+def forgot():
+    message = ""
+    all_remember = 1
+    for x in to_bring_list:
+        if to_bring_list[x] == 0:
+            all_remember = 0
+            message = message + " " + dictionary[x]
+    if all_remember == 0:
+        message = "你忘了帶" + message
+    elif all_remember == 1:
+        message = "你全都帶齊了呦～棒棒"
+    yoctol_message = {}
+    yoctol_message = text(message)
+    return yoctol_message
 
+@app.route('/all', methods = ['GET', 'POST'])
+def taken():
+    message = ""
+    all_forgot = 1
+    for x in to_bring_list:
+        if to_bring_list[x] == 1:
+            all_forgot = 0
+            message = message + " " + dictionary[x]
+    if all_forgot == 0:
+        message = "你的行李箱裡有" + message
+    elif all_forgot == 1:
+        message = "哇～你都忘了帶ㄟQQ"
+    yoctol_message = {}
+    yoctol_message = text(message)
+    return yoctol_message
 
 @app.route('/ITEM', methods = ['GET','POST'])
 def response():
@@ -52,7 +82,7 @@ def response():
         message = ""
         for item in change_list:
             message = message + " " + dictionary[item]
-        message = "你這次多放了" + message
+        message = "你的行李箱增加了" + message + " 等物品"
         yoctol_message = text(message)
     else:
         yoctol_message = text("此項物品不在你的清單中喔~")
@@ -77,24 +107,32 @@ def RPi_response():
                 if item in to_bring_list:
                     to_bring_list[item] = 1
                     change_list += [item]
-                    message = item + " is put in the e-luggage."
+                    message = item + " is put into the e-luggage."
                     print(message)
                 obj_list += [item]
         print(obj_list)
     previos_status = cur_status
     return "ok"
 
-@app.route('/ChangeList', methods=['GET','POST'])
+@app.route('/list', methods=['GET','POST'])
 def ChangeList():
-    to_bring_info = request.data
-    new_bring_dict = json.loads(to_bring_info)
-    
-    return "ok"
+    raw = request.data.decode('utf-8')
+    new_bring_dict = json.loads(raw)
+    for i in range(len(new_bring_dict)):
+        if new_bring_dict[i][1] == True:
+            to_bring_dict[new_bring_dict[i][0]] = 1
+    #to_bring_info = request.get_json()
+    #new_bring_dict = json.loads(to_bring_info)
+    res = Response("ok")
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    print(res)
+    return res
 
-@app.route('/LookList', methods=['GET,POST'])
+@app.route('/look', methods=['GET,POST'])
 def LookList():
-    
-    return json.dumps(to_bring_list)
+    res = Response(json.dumps(to_bring_list))
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    return res 
     
 
 
