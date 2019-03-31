@@ -1,4 +1,4 @@
-from flask import request, Flask, jsonify
+from flask import request, Flask, jsonify,Response
 import json
 import requests
 
@@ -106,13 +106,20 @@ def RPi_response():
 
 @app.route('/list', methods=['GET','POST'])
 def ChangeList():
-    to_bring_info = request.get_json()
-    new_bring_dict = json.loads(to_bring_info)
-    return "ok"
+    raw = request.data.decode('utf-8')
+    new_bring_dict = json.loads(raw)
+    #to_bring_info = request.get_json()
+    #new_bring_dict = json.loads(to_bring_info)
+    res = Response("ok")
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    print(res)
+    return res
 
 @app.route('/look', methods=['GET,POST'])
 def LookList():
-    return json.dumps(to_bring_list)
+    res = Response(json.dumps(to_bring_list))
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    return res 
     
 
 
