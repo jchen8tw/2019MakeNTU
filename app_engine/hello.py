@@ -118,6 +118,7 @@ def RPi_response():
 def ChangeList():
     raw = request.data.decode('utf-8')
     new_bring_dict = json.loads(raw)
+    print(new_bring_dict)
     #to_bring_info = request.get_json()
     #new_bring_dict = json.loads(to_bring_info)
     res = Response("ok")
