@@ -126,15 +126,20 @@ class TodoAppRoot extends React.Component {
                 ["LiangGongSpringDay", false]
             ]
         }
-        fetch('http://localhost:5000/list',{body : JSON.stringify(this.state["itemList"]),method : 'POST',mode: 'cors' })
+        fetch('http://ec2-13-231-212-74.ap-northeast-1.compute.amazonaws.com:5000/list',{body : JSON.stringify(this.state["itemList"]),method : 'POST',mode: 'cors' })
         .then(resp => resp.json())
         .then(data => {console.log(data)})
     }
     updateTable = ()=>{
-        console.log("update");
-        fetch('http://localhost:5000/look',{body : "123",method : 'POST',mode: 'cors' })
+        fetch('http://ec2-13-231-212-74.ap-northeast-1.compute.amazonaws.com:5000/look',{body : "123",method : 'POST',mode: 'cors' })
         .then(resp => resp.json())
-        .then(data => {console.log(data)})        
+        .then(data => {
+		let newList = []
+		for(var i in data){
+			newList.push([i,data[i]])
+		}
+		this.setState(()=>({"itemList": newList}))
+	})
     }
     componentDidMount() {
         setInterval(() => this.updateTable(),1000);
@@ -147,7 +152,7 @@ class TodoAppRoot extends React.Component {
         this.setState((state) => ({
             "itemList": List
         }));
-        fetch('http://localhost:5000/list',{body : JSON.stringify(this.state["itemList"]),method : 'POST',mode: 'cors' })
+        fetch('http://ec2-13-231-212-74.ap-northeast-1.compute.amazonaws.com:5000/list',{body : JSON.stringify(List),method : 'POST',mode: 'cors' })
         .then(resp => resp.json())
         .then(data => {console.log(data)})
     }
@@ -156,29 +161,31 @@ class TodoAppRoot extends React.Component {
         //List[itemName][1] = !List[itemName][1];
         let ind = List.findIndex((item) => item[0] === itemName);
         List[ind][1] = !List[ind][1];
-        this.setState((state) => ({
-            "itemList": List
-        }));
-        fetch('http://localhost:5000/list',{body : JSON.stringify(this.state["itemList"]),method : 'POST',mode: 'cors' })
+        fetch('http://ec2-13-231-212-74.ap-northeast-1.compute.amazonaws.com:5000/list',{body : JSON.stringify(List),method : 'POST',mode: 'cors' })
         .then(resp => resp.json())
         .then(data => {console.log(data)})
+	this.setState((state) => ({
+            "itemList": List
+        }));
     }
     addItem = (newitem) => {
-        let List = this.state["itemList"];
-        List.push(newitem);
-        this.setState((state) => ({
-            "itemList": List
+        let List = this.state["itemList"]
+        fetch('http://ec2-13-231-212-74.ap-northeast-1.compute.amazonaws.com:5000/list',{body : JSON.stringify(List),method : 'POST',mode: 'cors' })
+        .then(resp => resp.json())
+        .then(data => {console.log(data)})
+	this.setState((state) => ({
+            "itemList": List.push(newitem)
         }));
     }
     cleanItm = () => {
         let List = this.state["itemList"];
         let newList = List.filter(item => item[1] === false);
-        this.setState(
-            () => ({ "itemList": newList })
-        );
-        fetch('http://localhost:5000/list',{body : JSON.stringify(this.state["itemList"]),method : 'POST',mode: 'cors' })
+        fetch('http://ec2-13-231-212-74.ap-northeast-1.compute.amazonaws.com:5000/list',{body : JSON.stringify(newList),method : 'POST',mode: 'cors' })
         .then(resp => resp.json())
         .then(data => {console.log(data)})
+	this.setState(
+            () => ({ "itemList": newList })
+        );
     }
     render() {
         return <>
