@@ -126,21 +126,19 @@ class TodoAppRoot extends React.Component {
                 ["LiangGongSpringDay", false]
             ]
         }
-        fetch('http://ec2-52-69-255-179.ap-northeast-1.compute.amazonaws.com:5000/list',{body : JSON.stringify(this.state["itemList"]),method : 'POST',mode: 'cors' })
+        fetch('http://localhost:5000/list',{body : JSON.stringify(this.state["itemList"]),method : 'POST',mode: 'cors' })
         .then(resp => resp.json())
         .then(data => {console.log(data)})
     }
     updateTable = ()=>{
         console.log("update");
-        fetch('http://ec2-52-69-255-179.ap-northeast-1.compute.amazonaws.com:5000/look',{body : "123",method : 'POST',mode: 'cors' })
+        fetch('http://localhost:5000/look',{body : "123",method : 'POST',mode: 'cors' })
         .then(resp => resp.json())
         .then(data => {console.log(data)})        
     }
     componentDidMount() {
         setInterval(() => this.updateTable(),1000);
     }
-    
-
     removeItem = (itemName) => {
         let List = this.state["itemList"];
         //List[itemName][1] = !List[itemName][1];
@@ -149,6 +147,9 @@ class TodoAppRoot extends React.Component {
         this.setState((state) => ({
             "itemList": List
         }));
+        fetch('http://localhost:5000/list',{body : JSON.stringify(this.state["itemList"]),method : 'POST',mode: 'cors' })
+        .then(resp => resp.json())
+        .then(data => {console.log(data)})
     }
     switchState = (itemName) => {
         let List = this.state["itemList"];
@@ -158,6 +159,9 @@ class TodoAppRoot extends React.Component {
         this.setState((state) => ({
             "itemList": List
         }));
+        fetch('http://localhost:5000/list',{body : JSON.stringify(this.state["itemList"]),method : 'POST',mode: 'cors' })
+        .then(resp => resp.json())
+        .then(data => {console.log(data)})
     }
     addItem = (newitem) => {
         let List = this.state["itemList"];
@@ -172,7 +176,7 @@ class TodoAppRoot extends React.Component {
         this.setState(
             () => ({ "itemList": newList })
         );
-        fetch('http://ec2-52-69-255-179.ap-northeast-1.compute.amazonaws.com:5000/list',{body : JSON.stringify(this.state["itemList"]),method : 'POST',mode: 'cors' })
+        fetch('http://localhost:5000/list',{body : JSON.stringify(this.state["itemList"]),method : 'POST',mode: 'cors' })
         .then(resp => resp.json())
         .then(data => {console.log(data)})
     }
