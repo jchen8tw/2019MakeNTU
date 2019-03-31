@@ -4,7 +4,7 @@ import requests
 
 app = Flask(__name__)
 to_bring_list = {"Sunglasses":0, "Baseball Cap":0, "Cup":0, "Mouse":0, "Pillow":0}
-dictionary = {"Sunglasses":"太陽眼鏡", "Baseball Cap":"鴨舌帽", "Mouse":"滑鼠", "Cup":"杯子","MahJong":"麻將","Pillow":"涼宮春日的等身抱枕"}
+dictionary = {"Sunglasses":"太陽眼鏡", "Baseball Cap":"鴨舌帽", "Mouse":"滑鼠", "Cup":"杯子","MahJong":"麻將","LiangGongSpringDay":"涼宮春日的等身抱枕"}
 change_list = []
 client_url = "https://bot-api5.yoctol.com/kurator-bot/webhooks/line/1559843026"
 previos_status = '0'
@@ -69,7 +69,7 @@ def response():
     elif id == '4':
         obj_type = "MahJong"
     elif id == '5':
-        obj_type = "Pillow"
+        obj_type = "LiangGongSpringDay"
     elif id == 'delta':
         obj_type = 'change_list'
     yoctol_message = {}
@@ -128,7 +128,7 @@ def ChangeList():
     print(res)
     return res
 
-@app.route('/look', methods=['GET,POST'])
+@app.route('/look', methods=['GET','POST'])
 def LookList():
     res = Response(json.dumps(to_bring_list))
     res.headers['Access-Control-Allow-Origin'] = '*'
