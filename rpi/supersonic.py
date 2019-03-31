@@ -56,11 +56,11 @@ while True:
             print("this is so long fewiuhfiulwehfiuehfiluweahfuilewahfliaeufhwieuafhlieu")
             data = reko()
             data = json.dumps(data)
-            r = requests.post("http://ec2-52-69-255-179.ap-northeast-1.compute.amazonaws.com:5000/RPi?Status=1", data = data)   
+            r = requests.post("http://ec2-13-231-212-74.ap-northeast-1.compute.amazonaws.com:5000/RPi?Status=1", data = data)   
             time.sleep(5)
     else:
         status = 0
         print("box is closed")
-        r = requests.post("http://ec2-52-69-255-179.ap-northeast-1.compute.amazonaws.com:5000/RPi?Status=0", data = '{}')
+        r = requests.post("http://ec2-13-231-212-74.ap-northeast-1.compute.amazonaws.com:5000/RPi?Status=0", data = '{}')
     #print('box distance', dis_boxopen)
     time.sleep(0.01)
