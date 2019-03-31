@@ -4,10 +4,12 @@ import './index.css';
 //import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-//ReactDOM.render(<App />, document.getElementById('root'));
-class CleanBtn extends React.Component {
-    handleClick = () =>{
 
+//ReactDOM.render(<App />, document.getElementById('root'));
+
+class CleanBtn extends React.Component {
+    handleClick = () => {
+        this.props.cleanItm();
     }
     render() {
         if (this.props.left > 0) {
@@ -91,7 +93,7 @@ class Input extends React.Component {
 class Main extends React.Component {
     render() {
         return <section className='todo-app__main'>
-            <Input addItem = {this.props.addItem}/>
+            <Input addItem={this.props.addItem} />
             <TodoAppList itemList={this.props.itemList} switchState={this.props.switchState} removeItem={this.props.removeItem} />
         </section>;
     }
@@ -106,7 +108,7 @@ class Footer extends React.Component {
         return <footer id="todo-footer" className="todo-app__footer">
             <Total left={this.props.left} />
             <ViewBtn />
-            <CleanBtn left={this.props.left} />
+            <CleanBtn left={this.props.left} cleanItm={this.props.cleanItm} />
         </footer>
 
     }
@@ -119,10 +121,26 @@ class TodoAppRoot extends React.Component {
                 ["Sunglasses", false],
                 ["Baseball cap", false],
                 ["Cup", false],
-                ["Footwear", false]
+                ["Mouse", false],
+                ["Majian", false],
+                ["LiangGongSpringDay", false]
             ]
         }
+        fetch('http://ec2-52-69-255-179.ap-northeast-1.compute.amazonaws.com:5000/list',{body : JSON.stringify(this.state["itemList"]),method : 'POST',mode: 'cors' })
+        .then(resp => resp.json())
+        .then(data => {console.log(data)})
     }
+    updateTable = ()=>{
+        console.log("update");
+        fetch('http://ec2-52-69-255-179.ap-northeast-1.compute.amazonaws.com:5000/look',{body : "123",method : 'POST',mode: 'cors' })
+        .then(resp => resp.json())
+        .then(data => {console.log(data)})        
+    }
+    componentDidMount() {
+        setInterval(() => this.updateTable(),1000);
+    }
+    
+
     removeItem = (itemName) => {
         let List = this.state["itemList"];
         //List[itemName][1] = !List[itemName][1];
@@ -148,11 +166,21 @@ class TodoAppRoot extends React.Component {
             "itemList": List
         }));
     }
+    cleanItm = () => {
+        let List = this.state["itemList"];
+        let newList = List.filter(item => item[1] === false);
+        this.setState(
+            () => ({ "itemList": newList })
+        );
+        fetch('http://ec2-52-69-255-179.ap-northeast-1.compute.amazonaws.com:5000/list',{body : JSON.stringify(this.state["itemList"]),method : 'POST',mode: 'cors' })
+        .then(resp => resp.json())
+        .then(data => {console.log(data)})
+    }
     render() {
         return <>
             <Header />
-            <Main itemList={this.state["itemList"]} switchState={this.switchState} removeItem={this.removeItem} addItem = {this.addItem}/>
-            <Footer left={this.state["itemList"].reduce((acc, item) => acc + (item[1] === false), 0)} />
+            <Main itemList={this.state["itemList"]} switchState={this.switchState} removeItem={this.removeItem} addItem={this.addItem} />
+            <Footer left={this.state["itemList"].reduce((acc, item) => acc + (item[1] === false), 0)} cleanItm={this.cleanItm} />
         </>
     }
 }
