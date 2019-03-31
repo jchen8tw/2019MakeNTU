@@ -184,7 +184,8 @@ class TodoAppRoot extends React.Component {
         return <>
             <Header />
             <Main itemList={this.state["itemList"]} switchState={this.switchState} removeItem={this.removeItem} addItem={this.addItem} />
-            <Footer left={this.state["itemList"].reduce((acc, item) => acc + (item[1] === false), 0)} cleanItm={this.cleanItm} />
+            {/* <Footer left={this.state["itemList"].reduce((acc, item) => acc + (item[1] === false), 0)} cleanItm={this.cleanItm} /> */}
+            <Footer left={this.state["itemList"].filter((item)=> item[1] === false).length} cleanItm={this.cleanItm} /> 
         </>
     }
 }
