@@ -48,7 +48,7 @@ while True:
         #print("up: ",dis_up)
         #print("down ",dis_down)
         if dis_up < 35 or dis_down < 35:
-            print("this is so long fewiuhfiulwehfiuehfiluweahfuilewahfliaeufhwieuafhlieu")
+            #print("this is so long fewiuhfiulwehfiuehfiluweahfuilewahfliaeufhwieuafhlieu")
             print(test.reko())
             time.sleep(5)
     else:
